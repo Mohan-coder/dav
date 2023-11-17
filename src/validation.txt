@@ -1,0 +1,71 @@
+const validationSchema = Yup.object().shape({
+  firstName: Yup.string().required('First Name is required'),
+  lastName: Yup.string().required('Last Name is required'),
+  address: Yup.string().required('Address is required'),
+  city: Yup.string().required('City is required'),
+  country: Yup.string().nullable().required('Country is required'),
+  state: Yup.string().nullable().required('State is required'),
+  zip: Yup.string().required('ZIP Code is required'),
+  phone: Yup.string().required('Phone number is required'),
+  email: Yup.string().email('Invalid email address').required('Email is required'),
+  billingSameAsShipping: Yup.string(),
+  billingFirstName: Yup.string().when('billingSameAsShipping', {
+    is: 'no',
+    then: Yup.string().required('Billing First Name is required'),
+    otherwise: Yup.string(),
+  }),
+  billingLastName: Yup.string().when('billingSameAsShipping', {
+    is: 'no',
+    then: Yup.string().required('Billing Last Name is required'),
+    otherwise: Yup.string(),
+     otherwise: Yup.string(),
+      otherwise: Yup.string(),
+  }),
+  billingAddress: Yup.string().when('billingSameAsShipping', {
+    is: 'no',
+    then: Yup.string().required('Billing Address is required'),
+     otherwise: Yup.string(),
+      otherwise: Yup.string(),
+  }),
+  billingCity: Yup.string().when('billingSameAsShipping', {
+    is: 'no',
+    then: Yup.string().required('Billing City is required'),
+     otherwise: Yup.string(),
+      otherwise: Yup.string(),
+  }),
+  billingCountry: Yup.string().nullable().when('billingSameAsShipping', {
+    is: 'no',
+    then: Yup.string().required('Billing Country is required'),
+     otherwise: Yup.string(),
+      otherwise: Yup.string(),
+  }),
+  billingState: Yup.string().nullable().when('billingSameAsShipping', {
+    is: 'no',
+    then: Yup.string().required('Billing State is required'),
+     otherwise: Yup.string(),
+      otherwise: Yup.string(),
+  }),
+  billingZip: Yup.string().when('billingSameAsShipping', {
+    is: 'no',
+    then: Yup.string().required('Billing ZIP Code is required'),
+     otherwise: Yup.string(),
+      otherwise: Yup.string(),
+  }),
+  cc_type: Yup.string().nullable(),
+  cc_number: Yup.string().when('cc_type', {
+    is: Yup.string().required('Credit Card Number is required'),
+     otherwise: Yup.string(),
+  }),
+  expmonth: Yup.string().nullable().when('cc_number', {
+    is: Yup.string().required('Expiry Month is required'),
+     otherwise: Yup.string(),
+  }),
+  expyear: Yup.string().nullable().when('cc_number', {
+    is: Yup.string().required('Expiry Year is required'),
+     otherwise: Yup.string(),
+  }),
+  cvv: Yup.string().when('cc_number', {
+    is: Yup.string().required('CVV is required'),
+     otherwise: Yup.string(),
+  }),
+});
